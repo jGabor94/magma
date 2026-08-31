@@ -38,7 +38,7 @@ export const { handlers: { GET, POST }, auth, signIn, signOut, unstable_update }
     ],
     callbacks: {
         jwt: async ({ token, user, trigger, session }) => {
-            let userData = user
+            const userData = user
 
             if (trigger === "update" && session) return { ...token, userData: { ...session.user } }
 

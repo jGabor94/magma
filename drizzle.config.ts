@@ -12,7 +12,7 @@ register({
 })
 config({ path: ".env" })
 
-export default defineConfig({
+const drizzleConfig = {
     out: './src/drizzle/migrations',
     schema: './src/drizzle/schema.ts',
     dialect: 'postgresql',
@@ -21,4 +21,6 @@ export default defineConfig({
     dbCredentials: {
         url: process.env.DATABASE_URL!,
     },
-}) satisfies Config
+} satisfies Config & { strict: boolean }
+
+export default defineConfig(drizzleConfig)
