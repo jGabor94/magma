@@ -8,7 +8,7 @@ Egy pörgős, online partijáték, ahol a játékosok egymás után válaszolnak
 
 A MAGMA játékmenetét a Tick Tack Bumm társasjáték inspirálta, digitális partijátékos köntösben. A kör aktív játékosa választ ad az éppen látható feladványra, majd továbbadja a sort a következő játékosnak. A háttérben futó, kiszámíthatatlan időzítő bármikor vulkánkitörést indíthat.
 
-Ha nálad tör ki a vulkán, kapsz egy kitöréspontot. A ranglistán a kevesebb kitörés a jobb.
+Ha nálad tör ki a vulkán, nem kapsz pontot, minden más játékos viszont 1 magmapontot gyűjt. A ranglistán a több magmapont a jobb. A játék végén a legkevesebb magmapontot gyűjtő játékos veszít; holtversenynél minden azonos minimumon álló játékos vesztes.
 
 ## Játékmenet
 
@@ -16,7 +16,7 @@ Ha nálad tör ki a vulkán, kapsz egy kitöréspontot. A ranglistán a kevesebb
 2. Az aktív játékos válaszol a megjelenő feladványra.
 3. A **Következő** gombbal add tovább a kört.
 4. Ismételjétek, amíg a véletlenszerű időzítő el nem indítja a kitörést.
-5. Akinél kitör a vulkán, kitöréspontot kap.
+5. Akinél kitör a vulkán, nem kap pontot; minden más játékos kap 1 magmapontot.
 6. Indítsatok új feladatot, és folytassátok a játékot.
 
 A prototípusban az időzítő 10 és 120 másodperc között, véletlenszerűen jár le. A **Vissza** gombbal korrigálható a téves továbbadás, a feladvány cserélhető, az aktuális állás pedig bármikor megnyitható.
@@ -29,7 +29,7 @@ A fejlesztési prototípus már tartalmazza:
 - a körök és az aktív játékos kezelését;
 - a feladványok léptetését és cseréjét;
 - a véletlenszerű kitörést és annak animációját;
-- a kitöréspontok számolását és a ranglistát;
+- a magmapontok számolását és a ranglistát;
 - a játék lezárását és új játék indítását.
 
 Az online, többjátékos Next.js-alkalmazás implementációja még folyamatban van. A helyi HTML-prototípus fejlesztési referenciaként szolgál, ezért szándékosan nem része a repositorynak.

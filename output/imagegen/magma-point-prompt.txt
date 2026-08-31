@@ -1,0 +1,4 @@
+Generation mode: built-in image_gen
+Asset: public/magma-point.png
+
+Egyetlen magmapont-jelvény egy játék ranglistájához: tömzsi, fényes narancs–korall lávacsepp, aranysárga belső lánggal, vastag sötétlila kontúrral. Játékos cartoon game asset, enyhe térhatással, egyszerű és 24 pixeles méretben is felismerhető sziluettel. Középre helyezett, a négyzetes kép nagy részét kitöltő ikon, kis egyenletes margóval. Valódi átlátszó háttér (alpha), felirat, számok, árnyékvető háttér és vízjel nélkül.
