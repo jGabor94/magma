@@ -2,7 +2,7 @@
 
 import NextLink from "@/components/NextLink";
 import useHasActiveGame from "@/features/game/hooks/useHasActiveGame";
-import { clearActiveGame, loadActiveGame } from "@/features/game/lib/gameStorage";
+import { loadActiveGame, saveActiveGame } from "@/features/game/lib/gameStorage";
 import useModalControl from "@/hooks/useModalControl";
 import { CartoonButton } from "@/lib/mui/styled";
 import { Dialog, DialogActions, DialogContent, Typography } from "@mui/material";
@@ -38,7 +38,8 @@ const ResumeGameModal: FC = () => {
   }, [handleClose, handleOpen, isGamePage, pathname]);
 
   const finishGame = () => {
-    clearActiveGame();
+    const game = loadActiveGame();
+    if (game) saveActiveGame({ ...game, isFinished: true });
     handleClose();
   };
 

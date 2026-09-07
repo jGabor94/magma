@@ -87,13 +87,18 @@ const GamePageClient: FC = () => {
   };
 
   const finishGame = () => {
+    dispatch({ type: "finish-game" });
+    setPhase("idle");
+  };
+
+  const exitGame = () => {
     clearActiveGame();
     router.replace("/create");
   };
 
   const continueAfterEruption = () => {
     if (game?.isFinished) {
-      finishGame();
+      exitGame();
       return;
     }
 
@@ -118,7 +123,7 @@ const GamePageClient: FC = () => {
 
   // Frissítés után már nincs kitörési animáció, ezért külön végeredményképernyő kell.
   if (game.isFinished && eruptionPhase === "idle") {
-    return <FinishedGameResult players={sortedPlayers} onExit={finishGame} />;
+    return <FinishedGameResult players={sortedPlayers} onExit={exitGame} />;
   }
 
   const activePlayer = game.players[game.currentPlayerIndex];

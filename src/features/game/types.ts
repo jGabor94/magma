@@ -11,6 +11,7 @@ export type RankedPlayer = { player: GamePlayer; originalIndex: number };
 
 export type GameAction =
   | { type: "load-game"; game: GameState | null }
+  | { type: "finish-game" }
   | { type: "next-player" }
   | { type: "previous-player" }
   | { type: "next-prompt"; randomValue: number }

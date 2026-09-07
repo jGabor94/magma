@@ -13,6 +13,12 @@ export const gameReducer = (
   // Játék nélkül a játékmenet actionjeinek nincs dolguk.
   if (!game) return game;
 
+  if (game.isFinished) return game;
+
+  if (action.type === "finish-game") {
+    return { ...game, isFinished: true };
+  }
+
   if (action.type === "next-player") {
     const nextPlayerIndex = game.currentPlayerIndex + 1;
     const wrappedIndex = nextPlayerIndex % game.players.length;
