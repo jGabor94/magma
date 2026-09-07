@@ -1,4 +1,5 @@
 import NextLink from "@/components/NextLink";
+import GameGuide from "@/features/game/components/GameGuide";
 import ResumeGameButton from "@/features/game/components/ResumeGameButton";
 import { CartoonButton } from "@/lib/mui/styled";
 import { Box, Stack, Typography } from "@mui/material";
@@ -119,6 +120,7 @@ export default function Home() {
         </CartoonButton>
         <ResumeGameButton />
       </Stack>
+      <GameGuide />
     </Box>
   );
 }
