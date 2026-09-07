@@ -1,3 +1,4 @@
+import ResumeGameModal from "@/features/game/components/ResumeGameModal";
 import theme from "@/lib/mui/theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
@@ -17,6 +18,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
+            <ResumeGameModal />
             {children}
           </ThemeProvider>
         </AppRouterCacheProvider>

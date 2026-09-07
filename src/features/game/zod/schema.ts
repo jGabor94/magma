@@ -1,3 +1,4 @@
+import { PROMPTS } from "@/features/game/lib/constants";
 import { z } from "zod";
 
 const playerSchema = z.object({
@@ -26,18 +27,17 @@ const legacyGamePlayerSchema = z.object({
   meltdowns: z.number().int().nonnegative(),
 });
 
-const gameHistoryEntrySchema = z.object({
-  playerIndex: z.number().int().nonnegative(),
-  promptIndex: z.number().int().nonnegative(),
-  round: z.number().int().positive(),
-});
-
 const gameStateFields = {
   currentPlayerIndex: z.number().int().nonnegative(),
-  promptIndex: z.number().int().nonnegative(),
+  promptIndex: z
+    .number()
+    .int()
+    .nonnegative()
+    .max(PROMPTS.length - 1, { message: "A feladvány indexe érvénytelen." }),
   usedPromptIds: z.array(z.string()).default([]),
   round: z.number().int().positive(),
-  history: z.array(gameHistoryEntrySchema),
+  history: z.array(z.number().int().nonnegative()),
+  isFinished: z.boolean().default(false),
 };
 
 const modernGameStateSchema = z.object({
@@ -76,11 +76,11 @@ export const gameStateSchema = z
       });
     }
 
-    state.history.forEach((entry, index) => {
-      if (entry.playerIndex >= state.players.length) {
+    state.history.forEach((playerIndex, index) => {
+      if (playerIndex >= state.players.length) {
         context.addIssue({
           code: "custom",
-          path: ["history", index, "playerIndex"],
+          path: ["history", index],
           message: "A korábbi játékos indexe érvénytelen.",
         });
       }

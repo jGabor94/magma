@@ -1,6 +1,7 @@
 "use client";
 
 import Logo from "@/components/Logo";
+import ToastAlert from "@/components/ToastAlert";
 import { createInitialGameState, saveActiveGame } from "@/features/game/lib/gameStorage";
 import type { CreateGameInput } from "@/features/game/types";
 import { createGameFormSchema } from "@/features/game/zod/schema";
@@ -170,11 +171,7 @@ const CreatePage: FC = () => {
           ))}
         </Stack>
 
-        {(formState.errors.players?.message || formState.errors.players?.root?.message) && (
-          <Typography role="alert" sx={{ mb: 1.5, color: "error.main", fontSize: 13, fontWeight: 900 }}>
-            {formState.errors.players.message ?? formState.errors.players.root?.message}
-          </Typography>
-        )}
+
 
         <CartoonButton
           type="button"
@@ -254,16 +251,10 @@ const CreatePage: FC = () => {
       </Card>
       <Toaster
         position="bottom-center"
-        toastOptions={{
-          style: {
-            border: "3px solid #fff",
-            borderRadius: 16,
-            background: "#33216b",
-            color: "#fff",
-            fontWeight: 800,
-          },
-        }}
-      />
+        containerStyle={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 16px)" }}
+      >
+        {(notification) => <ToastAlert notification={notification} />}
+      </Toaster>
     </Box>
   )
 };

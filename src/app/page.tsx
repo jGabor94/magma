@@ -1,7 +1,7 @@
 import NextLink from "@/components/NextLink";
+import ResumeGameButton from "@/features/game/components/ResumeGameButton";
 import { CartoonButton } from "@/lib/mui/styled";
-import { Box, Button, Stack, Typography } from "@mui/material";
-import { FlaskConical } from "lucide-react";
+import { Box, Stack, Typography } from "@mui/material";
 
 export default function Home() {
   return (
@@ -117,15 +117,7 @@ export default function Home() {
         >
           Új játék létrehozása
         </CartoonButton>
-        <Button
-          component={NextLink}
-          href="/playground"
-          variant="text"
-          startIcon={<FlaskConical size={18} />}
-          sx={{ mt: 3, color: "rgba(255,255,255,.75)" }}
-        >
-          UI playground
-        </Button>
+        <ResumeGameButton />
       </Stack>
     </Box>
   );

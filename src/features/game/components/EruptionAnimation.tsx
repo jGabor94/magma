@@ -1,3 +1,4 @@
+import { ERUPTION_CONFIG } from "@/features/game/config";
 import type { EruptionPhase } from "@/features/game/types";
 import { Box } from "@mui/material";
 import { FC } from "react";
@@ -36,7 +37,7 @@ const EruptionAnimation: FC<EruptionAnimationProps> = ({ phase }) => {
         },
         phase === "active" ? {
           background: "#120f32",
-          animation: "magmaEruption 5.4s cubic-bezier(.18,.72,.18,1) both",
+          animation: `magmaEruption ${ERUPTION_CONFIG.durationMs}ms cubic-bezier(.18,.72,.18,1) both`,
           "@keyframes magmaEruption": {
             "0%": { opacity: 0, backgroundColor: "#120f32", filter: "brightness(.72)" },
             "8%": { opacity: 1, backgroundColor: "#1d1743", filter: "brightness(.92)" },
@@ -64,7 +65,7 @@ const EruptionAnimation: FC<EruptionAnimationProps> = ({ phase }) => {
         boxShadow: "0 0 90px rgba(255,85,120,.82), 0 0 180px rgba(108,84,232,.42)",
         transform: "translate(-50%, 38%) scale(.15)",
         opacity: 0,
-        animation: "eruptionGlow 5.2s cubic-bezier(.18,.74,.18,1) both",
+        animation: `eruptionGlow ${ERUPTION_CONFIG.durationMs * 0.9625}ms cubic-bezier(.18,.74,.18,1) both`,
         "@keyframes eruptionGlow": {
           "0%, 12%": { opacity: 0, transform: "translate(-50%,38%) scale(.12)" },
           "30%": { opacity: 0.48, transform: "translate(-50%,38%) scale(.54)" },
@@ -85,7 +86,7 @@ const EruptionAnimation: FC<EruptionAnimationProps> = ({ phase }) => {
         transform: "translateX(-50%) scaleY(.06)",
         transformOrigin: "50% 100%",
         opacity: 0,
-        animation: "lavaRise 5.1s cubic-bezier(.16,.78,.18,1) both",
+        animation: `lavaRise ${ERUPTION_CONFIG.durationMs * 0.945}ms cubic-bezier(.16,.78,.18,1) both`,
         "&::before, &::after": { content: '\"\"', position: "absolute", top: "5%", width: 34, height: "74%", borderRadius: "50%", background: "linear-gradient(to top,rgba(255,75,110,.18),#ff9d49 52%,#fff4b4)", boxShadow: "0 0 28px rgba(255,92,143,.6)" },
         "&::before": { left: -30, transform: "rotate(-15deg)" },
         "&::after": { right: -30, transform: "rotate(15deg)" },
@@ -106,7 +107,7 @@ const EruptionAnimation: FC<EruptionAnimationProps> = ({ phase }) => {
         aspectRatio: "1.72",
         pointerEvents: "none",
         transformOrigin: "50% 100%",
-        animation: "eruptionSmoke 5.1s cubic-bezier(.18,.74,.18,1) both",
+        animation: `eruptionSmoke ${ERUPTION_CONFIG.durationMs * 0.945}ms cubic-bezier(.18,.74,.18,1) both`,
         "@keyframes eruptionSmoke": {
           "0%, 18%": { opacity: 0, transform: "translate(-50%, 24vh) scale(.12)" },
           "32%": { opacity: 0.7, transform: "translate(-50%, 8vh) scale(.46)" },

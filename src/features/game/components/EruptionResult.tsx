@@ -1,28 +1,27 @@
 import type { EruptionLoser, RankedPlayer } from "@/features/game/types";
 import { Box, Button, Card, Typography } from "@mui/material";
-import { Play } from "lucide-react";
+import { LogOut, Play } from "lucide-react";
 import { FC } from "react";
 import LeaderBaord from "./UI/LeaderBaord";
 
 interface EruptionResultProps {
-  visible: boolean;
-  loser: EruptionLoser | null;
+  loser: EruptionLoser;
   players: RankedPlayer[];
+  isGameFinished: boolean;
   onContinue: () => void;
 }
 
 const EruptionResult: FC<EruptionResultProps> = ({
-  visible,
   loser,
   players,
+  isGameFinished,
   onContinue,
 }) => {
 
-  return visible && (
+  return (
     <Box
       role="alert"
       aria-live="assertive"
-      aria-hidden={!visible}
       sx={[
         {
           position: "fixed",
@@ -35,15 +34,13 @@ const EruptionResult: FC<EruptionResultProps> = ({
           flexDirection: "column",
           gap: 1.25,
           color: "#fff",
-          opacity: 1,
-          visibility: "visible",
-          pointerEvents: "auto",
           transform: "translate(-50%, 0)",
-          transition: "opacity 460ms ease, transform 460ms ease",
         },
 
       ]}
     >
+
+
       <Card sx={{
         alignSelf: "center",
         flexShrink: 0,
@@ -60,7 +57,7 @@ const EruptionResult: FC<EruptionResultProps> = ({
         textShadow: "0 3px 0 rgba(25,11,41,.72)",
       }}>
         <Typography sx={{ color: "#ff9a80", fontSize: 14, fontWeight: 950, letterSpacing: ".04em", textTransform: "uppercase" }}>Vesztes:</Typography>
-        <Typography sx={{ color: "#ffb076", fontSize: "clamp(28px, 7.4vw, 40px)", lineHeight: 1, fontWeight: 950, letterSpacing: "-.045em", overflowWrap: "anywhere", textShadow: "0 3px 0 #723d34, 0 7px 14px rgba(0,0,0,.28)" }}>{loser?.name}</Typography>
+        <Typography sx={{ color: "#ffb076", fontSize: "clamp(28px, 7.4vw, 40px)", lineHeight: 1, fontWeight: 950, letterSpacing: "-.045em", overflowWrap: "anywhere", textShadow: "0 3px 0 #723d34, 0 7px 14px rgba(0,0,0,.28)" }}>{loser.name}</Typography>
       </Card>
       <Card sx={{
         boxShadow: 10,
@@ -74,7 +71,11 @@ const EruptionResult: FC<EruptionResultProps> = ({
       </Card>
       <Button
         onClick={onContinue}
-        endIcon={<Play size={21} fill="currentColor" />}
+        endIcon={
+          isGameFinished
+            ? <LogOut size={21} strokeWidth={4} />
+            : <Play size={21} fill="currentColor" />
+        }
         sx={(theme) => ({
           width: "100%",
           flexShrink: 0,
@@ -84,7 +85,7 @@ const EruptionResult: FC<EruptionResultProps> = ({
           fontSize: "24px !important"
         })}
       >
-        Új feladat
+        {isGameFinished ? "Játék befejezése" : "Új feladat"}
       </Button>
 
     </Box>

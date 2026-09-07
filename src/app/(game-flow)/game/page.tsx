@@ -1,4 +1,5 @@
 import GamePageClient from "@/features/game/components/GamePageClient";
+import GameProvider from "@/features/game/providers/GameProvider";
 import { Box } from "@mui/material";
 import { FC } from "react";
 
@@ -17,7 +18,9 @@ const GamePage: FC = () => {
         flexDirection: "column",
       }}
     >
-      <GamePageClient />
+      <GameProvider>
+        <GamePageClient />
+      </GameProvider>
     </Box>
   );
 };

@@ -1,12 +1,24 @@
 import type { GamePlayer, GameState } from "@/features/game/types";
 import { gameStateSchema } from "@/features/game/zod/schema";
 import { ACTIVE_GAME_STORAGE_KEY } from "./constants";
-import {
-  createRandomPromptProgress,
-  normalizePromptProgress,
-} from "./promptSelection";
+import { createRandomPromptProgress } from "./promptSelection";
 
 const canUseStorage = () => typeof window !== "undefined";
+const ACTIVE_GAME_CHANGED_EVENT = "magma:active-game-changed";
+
+export const subscribeToActiveGame = (onChange: () => void) => {
+  const onStorage = (event: StorageEvent) => {
+    if (event.key === ACTIVE_GAME_STORAGE_KEY || event.key === null) onChange();
+  };
+
+  window.addEventListener(ACTIVE_GAME_CHANGED_EVENT, onChange);
+  window.addEventListener("storage", onStorage);
+
+  return () => {
+    window.removeEventListener(ACTIVE_GAME_CHANGED_EVENT, onChange);
+    window.removeEventListener("storage", onStorage);
+  };
+};
 
 export const createInitialGameState = (
   players: Array<Pick<GamePlayer, "name">>,
@@ -19,6 +31,7 @@ export const createInitialGameState = (
     ...promptProgress,
     round: 1,
     history: [],
+    isFinished: false,
   };
 };
 
@@ -26,6 +39,7 @@ export const saveActiveGame = (game: GameState) => {
   if (!canUseStorage()) return;
 
   window.localStorage.setItem(ACTIVE_GAME_STORAGE_KEY, JSON.stringify(game));
+  window.dispatchEvent(new Event(ACTIVE_GAME_CHANGED_EVENT));
 };
 
 export const loadActiveGame = (): GameState | null => {
@@ -43,7 +57,7 @@ export const loadActiveGame = (): GameState | null => {
       return null;
     }
 
-    return normalizePromptProgress(result.data);
+    return result.data;
   } catch {
     window.localStorage.removeItem(ACTIVE_GAME_STORAGE_KEY);
     return null;
@@ -54,4 +68,5 @@ export const clearActiveGame = () => {
   if (!canUseStorage()) return;
 
   window.localStorage.removeItem(ACTIVE_GAME_STORAGE_KEY);
+  window.dispatchEvent(new Event(ACTIVE_GAME_CHANGED_EVENT));
 };

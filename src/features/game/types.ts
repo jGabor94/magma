@@ -8,3 +8,10 @@ export type GameHistoryEntry = GameState["history"][number];
 export type EruptionPhase = "idle" | "active" | "awaiting";
 export type EruptionLoser = { name: string; playerIndex: number };
 export type RankedPlayer = { player: GamePlayer; originalIndex: number };
+
+export type GameAction =
+  | { type: "load-game"; game: GameState | null }
+  | { type: "next-player" }
+  | { type: "previous-player" }
+  | { type: "next-prompt"; randomValue: number }
+  | { type: "eruption"; randomValue: number };
